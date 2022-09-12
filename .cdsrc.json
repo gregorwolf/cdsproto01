@@ -1,0 +1,43 @@
+{
+    "auth": {
+        "passport": {
+            "strategy": "mock",
+            "users": {
+                "bob": {
+                    "password": "PW",
+                    "ID": "employee@test.com",
+                    "roles": [
+                        "modeler"
+                    ],
+                    "attr": {
+                        "test": "X",
+                        "environments": [
+                            {
+                                "SXP0012": {
+                                    "teams": [
+                                        "MYTEAM"
+                                    ],
+                                    "fields": [
+                                        {
+                                            "COUNTRY": [
+                                                "DE",
+                                                "US"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                "alice": {
+                    "password": "123",
+                    "ID": "admin@test.com",
+                    "roles": [
+                        "Admin"
+                    ]
+                }
+            }
+        }
+    }
+}
