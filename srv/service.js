@@ -1,5 +1,5 @@
 module.exports = function () {
-  this.before("*", async (req) => {
+  this.before("READ", "*", async (req) => {
     console.log(
       "host: ",
       req.headers.host,
@@ -18,7 +18,12 @@ module.exports = function () {
       " entity: ",
       req.entity
     );
-    console.log(" originalUrl: ", req.req.originalUrl, "user.id: ", req.user.id);
+    console.log(
+      " originalUrl: ",
+      req.req.originalUrl,
+      "user.id: ",
+      req.user.id
+    );
     // console.log(req.query);
   });
 };
