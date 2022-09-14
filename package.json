@@ -13,7 +13,7 @@
     "sqlite3": "^5.0.2"
   },
   "scripts": {
-    "start": "cds run"
+    "start": "cds watch"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
@@ -43,42 +43,42 @@
   "cds": {
     "requires": {
       "auth": {
-        "kind": "basic-auth"
-      }
-    }
-  },
-  "users": {
-    "alice": {
-      "roles": [
-        "admin"
-      ]
-    },
-    "bob": {
-      "password": "PW",
-      "ID": "employee@test.com",
-      "roles": [
-        "modeler"
-      ],
-      "attr": {
-        "environments": [
-          {
-            "SXP0012": {
-              "teams": [
-                "MYTEAM"
-              ],
-              "fields": [
+        "kind": "basic-auth",
+        "users": {
+          "alice": {
+            "roles": [
+              "admin"
+            ]
+          },
+          "bob": {
+            "password": "PW",
+            "ID": "employee@test.com",
+            "roles": [
+              "modeler"
+            ],
+            "userAttributes": {
+              "environments": [
                 {
-                  "COUNTRY": [
-                    "DE",
-                    "US"
-                  ]
+                  "SXP0012": {
+                    "teams": [
+                      "MYTEAM"
+                    ],
+                    "fields": [
+                      {
+                        "COUNTRY": [
+                          "DE",
+                          "US"
+                        ]
+                      }
+                    ]
+                  }
                 }
               ]
             }
-          }
-        ]
+          },
+          "*": false
+        }
       }
-    },
-    "*": false
+    }
   }
 }
