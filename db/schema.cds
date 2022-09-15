@@ -8,7 +8,7 @@ using {
     sap.common.CodeList
 } from '@sap/cds/common';
 
-entity Fakes {
+entity Fakes : cuid {
     test    : String;
     // _Items  : Composition of many Items
     //               on _Items._Fakes = $self;

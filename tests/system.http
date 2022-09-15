@@ -1,0 +1,6 @@
+###
+GET http://localhost:4004/system
+Authorization: Basic bob:PW
+###
+GET http://localhost:4004/system/Environments
+Authorization: Basic bob:PW
