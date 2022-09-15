@@ -26,4 +26,19 @@ module.exports = function () {
     );
     // console.log(req.query);
   });
+
+  this.before("SAVE", "Fakes", async (req) => {
+    if (req.data.test.length < 10) {
+      req.reject(400, "TEST_CONTENT_TO_SHORT");
+    }
+  });
+
+  this.on("createFake", async (req) => {
+    console.log("createFake");
+    const systemService = await cds.connect("SystemService");
+    const { Fakes } = systemService.entities;
+    const createResult = await systemService
+      .create(Fakes)
+      .entries({ test: "Test" });
+  });
 };

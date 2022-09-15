@@ -16,6 +16,8 @@ service SystemService {
     }])
     entity Environments as projection on environments;
 
-    @odata.draft.enabled 
-    entity Fakes as projection on fakes;
+    @odata.draft.enabled
+    entity Fakes        as projection on fakes;
+
+    action createFake() returns String;
 }
