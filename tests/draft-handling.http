@@ -1,0 +1,114 @@
+###
+GET http://localhost:4004/system/$metadata
+Authorization: Basic alice:PW
+###
+GET http://localhost:4004/system/
+Authorization: Basic alice:PW
+###
+GET http://localhost:4004/system/Fakes
+Authorization: Basic alice:PW
+###
+@fakeID=009bb7fa-43ef-4e4a-85b1-5a9ea692a5b0
+### Create new role using the draft dance
+# @name createRole
+POST http://localhost:4004/system/Fakes
+Authorization: Basic alice:PW
+Content-Type: application/json
+
+{
+  "ID": "{{fakeID}}",
+  "test": "Fake 1"
+}
+
+###
+@location = {{createRole.response.headers.Location}}
+
+###
+GET http://localhost:4004/system/{{location}}
+Authorization: Basic alice:PW
+
+###
+PATCH http://localhost:4004/system/{{location}}
+Authorization: Basic alice:PW
+Content-Type: application/json
+
+{
+  "test": "Fake changed"
+}
+
+###
+POST http://localhost:4004/system/{{location}}/SystemService.draftPrepare
+Authorization: Basic alice:PW
+Content-Type: application/json
+
+{"SideEffectsQualifier":""}
+
+###
+POST http://localhost:4004/system/{{location}}/SystemService.draftActivate
+Authorization: Basic alice:PW
+Content-Type: application/json
+
+{}
+
+###
+GET http://localhost:4004/system/Fakes(ID={{fakeID}},IsActiveEntity=true)
+  ?$expand=DraftAdministrativeData
+  // &$select=description
+Authorization: Basic alice:PW
+###
+GET http://localhost:4004/system/Fakes(ID={{fakeID}},IsActiveEntity=true)
+  ?$expand=DraftAdministrativeData
+Authorization: Basic bob:PW
+### Edit role using the draft dance
+# @name editRole
+POST http://localhost:4004/system/Fakes(ID={{fakeID}},IsActiveEntity=true)/SystemService.draftEdit
+Authorization: Basic alice:PW
+Content-Type: application/json
+
+{"PreserveChanges":false}
+
+### Try to create a draft as another user
+# Not Possible with PreserveChanges = true
+POST http://localhost:4004/system/Fakes(ID={{fakeID}},IsActiveEntity=true)/SystemService.draftEdit
+Authorization: Basic bob:PW
+Content-Type: application/json
+
+{"PreserveChanges":true}
+
+### Try to create a draft as another user
+POST http://localhost:4004/system/Fakes(ID={{fakeID}},IsActiveEntity=true)/SystemService.draftEdit
+Authorization: Basic bob:PW
+Content-Type: application/json
+
+{"PreserveChanges":false}
+###
+PATCH http://localhost:4004/system/Fakes(ID={{fakeID}},IsActiveEntity=false)
+Authorization: Basic alice:PW
+Content-Type: application/json
+
+{
+  "test": "Fake updated"
+}
+###
+POST http://localhost:4004/system/Fakes(ID={{fakeID}},IsActiveEntity=false)/SystemService.draftPrepare
+Authorization: Basic alice:PW
+Content-Type: application/json
+
+{"SideEffectsQualifier":""}
+
+###
+POST http://localhost:4004/system/Fakes(ID={{fakeID}},IsActiveEntity=false)/SystemService.draftActivate
+Authorization: Basic alice:PW
+Content-Type: application/json
+
+{}
+
+###
+GET http://localhost:4004/system/Fakes(ID={{fakeID}},IsActiveEntity=false)
+Authorization: Basic bob:PW
+###
+GET http://localhost:4004/system/Fakes(ID={{fakeID}},IsActiveEntity=true)
+Authorization: Basic alice:PW
+### Delete Entity
+DELETE  http://localhost:4004/system/Fakes(ID={{fakeID}},IsActiveEntity=true)
+Authorization: Basic alice:PW
