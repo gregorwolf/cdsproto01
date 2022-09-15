@@ -41,12 +41,17 @@
     }
   },
   "cds": {
+    "drafts": {
+      "cancellationTimeout": 1
+    },
     "requires": {
       "auth": {
         "kind": "basic-auth",
         "users": {
           "alice": {
+            "password": "PW",
             "roles": [
+              "modeler",
               "admin"
             ]
           },
@@ -77,6 +82,12 @@
             }
           },
           "*": false
+        }
+      },
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": "sqlite.db"
         }
       }
     }
