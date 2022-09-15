@@ -25,7 +25,23 @@ Content-Type: application/json
 
 ###
 GET http://localhost:4004/system/{{location}}
+  ?$expand=DraftAdministrativeData
 Authorization: Basic alice:PW
+### Try to read the new draft created by alice - Returns no results
+GET http://localhost:4004/system/Fakes
+  ?$expand=DraftAdministrativeData
+  &$filter=IsActiveEntity eq false
+Authorization: Basic bob:PW
+### Also a direct access by bob fails - Returns Not Found
+GET http://localhost:4004/system/{{location}}
+  ?$expand=DraftAdministrativeData
+Authorization: Basic bob:PW
+### As bob can't access the new draft also the bound action fails - Returns Forbidden
+POST http://localhost:4004/system/{{location}}/SystemService.assignDraftToCurrentUser
+Authorization: Basic bob:PW
+Content-Type: application/json
+
+{}
 
 ###
 PATCH http://localhost:4004/system/{{location}}
@@ -81,6 +97,12 @@ Authorization: Basic bob:PW
 Content-Type: application/json
 
 {"PreserveChanges":false}
+### For an existing entity bob can execute the action
+POST http://localhost:4004/system/Fakes(ID={{fakeID}},IsActiveEntity=true)/SystemService.assignDraftToCurrentUser
+Authorization: Basic bob:PW
+Content-Type: application/json
+
+{}
 ###
 PATCH http://localhost:4004/system/Fakes(ID={{fakeID}},IsActiveEntity=false)
 Authorization: Basic alice:PW

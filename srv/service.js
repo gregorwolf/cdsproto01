@@ -41,4 +41,7 @@ module.exports = function () {
       .create(Fakes)
       .entries({ test: "Test" });
   });
+  this.on("assignDraftToCurrentUser", async (req) => {
+    console.log("assignDraftToCurrentUser");
+  });
 };

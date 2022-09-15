@@ -17,7 +17,9 @@ service SystemService {
     entity Environments as projection on environments;
 
     @odata.draft.enabled
-    entity Fakes        as projection on fakes;
+    entity Fakes        as projection on fakes actions {
+        action assignDraftToCurrentUser() returns Fakes
+    };
 
     action createFake() returns String;
 }
