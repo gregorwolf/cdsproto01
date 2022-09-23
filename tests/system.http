@@ -4,3 +4,7 @@ Authorization: Basic bob:PW
 ###
 GET http://localhost:4004/system/Environments
 Authorization: Basic bob:PW
+
+###
+GET http://localhost:4004/system/User
+Authorization: Basic bob:PW

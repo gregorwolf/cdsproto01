@@ -27,6 +27,10 @@ module.exports = function () {
     // console.log(req.query);
   });
 
+  this.on("READ", "User", async (req) => {
+    return req.user;
+  });
+
   this.before("SAVE", "Fakes", async (req) => {
     if (req.data.test.length < 10) {
       req.reject(400, "TEST_CONTENT_TO_SHORT");

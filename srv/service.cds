@@ -21,5 +21,15 @@ service SystemService {
         action assignDraftToCurrentUser() returns Fakes
     };
 
+    @odata.singleton
+    @cds.persistency.skip
+    @readonly
+    entity User {
+        key id     : String;
+            attr   : String;
+            locale : String;
+            _roles : String;
+    };
+
     action createFake() returns String;
 }
