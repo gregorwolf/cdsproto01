@@ -11,7 +11,8 @@ service SystemService {
     @(restrict : [{
         grant : '*',
         to    : 'modeler',
-        // where : 'createdBy = $user'
+        // where : `team = $user.environments.SXP0012.teams`
+        where : 'createdBy = $user'
         // where : `$user.environments.SXP0012.teams = 'auditor'`
     }])
     entity Environments as projection on environments;

@@ -16,15 +16,10 @@ entity Fakes : cuid {
                   on _Items2._Fakes = $self;
 }
 
-@(restrict : [{
-    grant : '*',
-    to    : 'modeler',
-    where : 'createdBy = $user'
-    // where : `$user.environments.SXP0012.teams = 'auditor'`
-}])
 entity Environments : managed {
     key ID      : UUID @odata.Type : 'Edm.String';
         descr   : String;
+        team    : String;
         _Items  : Composition of many Items
                       on _Items._Environments = $self;
         _Items2 : Association to many Items2
