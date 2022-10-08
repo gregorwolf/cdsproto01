@@ -6,16 +6,17 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/cds": "^5",
+    "@sap/cds": "^6",
     "express": "^4",
     "@sap/xssec": "^3",
     "passport": "^0"
   },
   "devDependencies": {
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.1.2"
   },
   "scripts": {
-    "start": "cds watch"
+    "start": "cds watch",
+    "build:xs-security": "cds compile srv/ --to xsuaa > xs-security.json"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
@@ -64,6 +65,9 @@
               "modeler"
             ],
             "userAttributes": {
+              "teams": [
+                "MYTEAM"
+              ],
               "environments": [
                 {
                   "SXP0012": {
