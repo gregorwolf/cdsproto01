@@ -1,3 +1,5 @@
+const jwtDecode = require("jwt-decode");
+
 module.exports = function () {
   this.before("READ", "*", async (req) => {
     console.log(
@@ -24,6 +26,9 @@ module.exports = function () {
       "user.id: ",
       req.user.id
     );
+    console.log("req.user.attr.environments: ", req.user.attr.environments);
+    console.log("req.user.attr.teams: ", req.user.attr.teams);
+    console.log("req.user: ", req.user);
     // console.log(req.query);
   });
 
@@ -44,6 +49,15 @@ module.exports = function () {
     const createResult = await systemService
       .create(Fakes)
       .entries({ test: "Test" });
+  });
+
+  function getJWT(req) {
+    const jwt = /^Bearer (.*)$/.exec(req.headers.authorization)[1];
+    return jwt;
+  }
+
+  this.on("readJWT", async (req) => {
+    return jwtDecode(getJWT(req));
   });
   this.on("assignDraftToCurrentUser", async (req) => {
     console.log("assignDraftToCurrentUser");

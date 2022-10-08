@@ -37,5 +37,6 @@ service SystemService {
             _roles : String;
     };
 
-    action createFake() returns String;
+    function readJWT()    returns String;
+    action   createFake() returns String;
 }
