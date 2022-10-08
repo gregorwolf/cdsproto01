@@ -11,8 +11,13 @@ service SystemService {
     @(restrict : [{
         grant : '*',
         to    : 'modeler',
+        // Working:
+        // where : 'createdBy = $user'
+        // Working:
+        where : `team = $user.teams`
+        // TypeError: a.match is not a function in @sap/cds/libx/_runtime/common/generic/auth/utils.js:85:60
         // where : `team = $user.environments.SXP0012.teams`
-        where : 'createdBy = $user'
+        // ?
         // where : `$user.environments.SXP0012.teams = 'auditor'`
     }])
     entity Environments as projection on environments;
