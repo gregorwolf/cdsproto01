@@ -1,10 +1,21 @@
 {
+  "welcomeFile": "/app/",
   "authenticationMethod": "route",
+  "logout": {
+    "logoutEndpoint": "/do/logout",
+    "logoutPage": "/logout/logout-page.html"
+  },
   "routes": [
+    {
+      "source": "^/logout/(.*)$",
+      "target": "$1",
+      "localDir": "webapp",
+      "authenticationType": "none"
+    },
     {
       "source": "^/app/(.*)$",
       "target": "$1",
-      "localDir": ".",
+      "localDir": "webapp",
       "authenticationType": "xsuaa",
       "cacheControl": "no-cache, no-store, must-revalidate"
     },
