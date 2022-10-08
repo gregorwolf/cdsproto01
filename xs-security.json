@@ -1,6 +1,43 @@
 {
-  "scopes": [],
-  "attributes": [],
-  "role-templates": [],
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.modeler",
+      "description": "modeler"
+    }
+  ],
+  "attributes": [
+    {
+      "name": "teams",
+      "description": "teams",
+      "valueType": "s",
+      "valueRequired": false
+    },
+    {
+      "name": "environments",
+      "description": "environments",
+      "valueType": "s",
+      "valueRequired": false
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "modeler",
+      "description": "generated",
+      "scope-references": [
+        "$XSAPPNAME.modeler"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "userattributes",
+      "description": "generated",
+      "default-role-name": "Attributes of a User",
+      "scope-references": [],
+      "attribute-references": [
+        "teams",
+        "environments"
+      ]
+    }
+  ],
   "authorities-inheritance": false
 }
