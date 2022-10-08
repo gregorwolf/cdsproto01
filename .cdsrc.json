@@ -1,16 +1,25 @@
 {
-    "auth": {
-        "passport": {
-            "strategy": "mock",
+    "requires": {
+        "auth": {
+            "kind": "basic-auth",
             "users": {
+                "alice": {
+                    "password": "PW",
+                    "roles": [
+                        "modeler",
+                        "admin"
+                    ]
+                },
                 "bob": {
                     "password": "PW",
                     "ID": "employee@test.com",
                     "roles": [
                         "modeler"
                     ],
-                    "attr": {
-                        "test": "X",
+                    "userAttributes": {
+                        "teams": [
+                            "MYTEAM"
+                        ],
                         "environments": [
                             {
                                 "SXP0012": {
@@ -30,13 +39,7 @@
                         ]
                     }
                 },
-                "alice": {
-                    "password": "123",
-                    "ID": "admin@test.com",
-                    "roles": [
-                        "Admin"
-                    ]
-                }
+                "*": false
             }
         }
     }

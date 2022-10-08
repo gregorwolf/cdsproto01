@@ -7,16 +7,21 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^6",
-    "express": "^4",
     "@sap/xssec": "^3",
-    "passport": "^0",
-    "hdb": "^0.19.0"
+    "express": "^4",
+    "hdb": "^0.19.0",
+    "jwt-decode": "^3.1.2",
+    "passport": "^0"
   },
   "devDependencies": {
     "sqlite3": "^5.1.2"
   },
   "scripts": {
-    "start": "cds watch",
+    "start": "cds run",
+    "start:approuter": "cds bind --exec -- npm start --prefix app",
+    "watch": "cds watch",
+    "watch:hybrid": "cds watch --profile hybrid",
+    "build": "mbt build",
     "build:xs-security": "cds compile srv/ --to xsuaa > xs-security.json"
   },
   "eslintConfig": {
@@ -49,46 +54,14 @@
       "cancellationTimeout": 1
     },
     "requires": {
-      "auth": {
-        "kind": "basic-auth",
-        "users": {
-          "alice": {
-            "password": "PW",
-            "roles": [
-              "modeler",
-              "admin"
-            ]
-          },
-          "bob": {
-            "password": "PW",
-            "ID": "employee@test.com",
-            "roles": [
-              "modeler"
-            ],
-            "userAttributes": {
-              "teams": [
-                "MYTEAM"
-              ],
-              "environments": [
-                {
-                  "SXP0012": {
-                    "teams": [
-                      "MYTEAM"
-                    ],
-                    "fields": [
-                      {
-                        "COUNTRY": [
-                          "DE",
-                          "US"
-                        ]
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          },
-          "*": false
+      "[hybrid]": {
+        "auth": {
+          "kind": "xsuaa"
+        }
+      },
+      "[production]": {
+        "auth": {
+          "kind": "xsuaa"
         }
       },
       "db": {
